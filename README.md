@@ -1,6 +1,6 @@
 # Beacon
 
-Steps to build a Phoenix umbrella project that uses Beacon:
+Steps to build a Phoenix app using Beacon:
 
 1.  Make sure your phx_new package is up to date:
 
@@ -8,20 +8,31 @@ Steps to build a Phoenix umbrella project that uses Beacon:
     mix archive.install hex phx_new
     ```
 
-2.  Create an umbrella phoenix app:
+2.  Create either a single or umbrella phoenix app:
+
+    * Single app:
+
+    ```shell
+    mix phx.new --install my_app
+    ```
+
+    * Or Umbrella app:
 
     ```shell
     mix phx.new --umbrella --install my_app
     ```
 
-3.  Add :beacon as a dependency to both apps in your umbrella project:
+Beacon supports both.
+
+3.  Add :beacon as a dependency:
+
+    If the project is a single app, add beacon to your root `mix.exs` file:
 
     ```elixir
-      # Local:
-      {:beacon, path: "../../../beacon"},
-      # Or from GitHub:
-      {:beacon, github: "beaconCMS/beacon"},
+      {:beacon, github: "beaconCMS/beacon"}
     ```
+
+    Or to both apps `my_app` and `my_app_web` if running in an Umbrella app.
 
 4.  Update your deps:
 
@@ -183,9 +194,18 @@ Steps to build a Phoenix umbrella project that uses Beacon:
     })
     ```
 
-12. `cd apps/my_app && mix ecto.reset && cd ../..`
+12. Create database and run seeds:
 
-13. `mix phx.server`
+
+    ```shell
+    mix ecto.reset
+    ```
+
+13. Start server:
+
+    ```shell
+    mix phx.server
+    ```
 
 14. visit <http://localhost:4000/beacon/home> and note:
 
